@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>eSakay Fare Guide</title>
+<meta charset="UTF-8">
+<style>
+
+    html,body{
+        height:100%;
+        margin:0;
+    }
+    body{
+    background-color:#f2f2f2;
+    font-family:Arial;
+    display: flex;
+    flex-direction: column;
+    }
+
+    h1{
+    text-align:center;
+    }
+
+    .container{
+    margin-top:30px;
+    flex: 1;
+    }
+
+    .footer{
+    text-align:center;
+    padding:20px;
+    background-color:#222;
+    color:white;
+    /* margin-top:50px; */
+}
+
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<div class="container">
+
+<a class="navbar-brand" href="#">eSakay</a>
+
+
+
+</ul>
+
+<a class="btn btn-warning" href="registration.html">Create Account</a>
+
+</div>
+
+</nav>
+
+
+<div class="container">
+
+<h1 class="mt-4">Motorcycle Taxi Fare Guide</h1>
+
+<p>
+This webpage helps estimate the fare for a motorcycle taxi ride.
+Enter the distance of your trip and see the estimated cost.
+</p>
+
+
+<h2>Fare Calculator</h2>
+
+<div class="card p-3">
+
+<label>Distance (KM)</label>
+<input type="number" id="distance" class="form-control">
+
+<label class="mt-2">Passenger Type</label>
+
+<select id="type" class="form-control">
+
+<option value="regular">Regular</option>
+<option value="student">Student</option>
+<option value="senior">Senior</option>
+<option value="pwd">PWD</option>
+
+</select>
+
+<button class="btn btn-primary mt-3" onclick="computeFare()">
+Compute Fare
+</button>
+
+<h3 class="mt-3" id="result"></h3>
+
+</div>
+
+</div>
+
+
+<footer class="footer mt-100">
+
+<p>Group 3 | Grade 9 ICT</p>
+
+<p>
+Source:
+<a href="https://www.metrolinemap.com/metro/manila/">
+Metro Manila Rail Map
+</a>
+</p>
+
+</footer>
+
+<script>
+// base fare variables
+var baseFare = 50;
+var perKMrate = 15;
+var baseKM = 2;
+
+
+function computeFare(){
+
+// get distance input
+var distance = Number(document.getElementById("distance").value);
+
+// passenger type
+var type = document.getElementById("type").value;
+
+var totalFare;
+
+
+// compute fare
+if(distance <= baseKM){
+
+totalFare = baseFare;
+
+}
+else{
+
+var extraKM = distance - baseKM;
+
+totalFare = baseFare + (extraKM * perKMrate);
+
+}
+
+
+// discount for students, senior, pwd
+if(type == "student" || type == "senior" || type == "pwd"){
+
+totalFare = totalFare * 0.80;
+
+}
+
+
+// round result
+totalFare = Math.round(totalFare);
+
+
+// display output
+document.getElementById("result").innerHTML =
+"Estimated Fare: ₱" + totalFare;
+
+}</script>
+
+</body>
+</html>
